@@ -16,9 +16,18 @@ export default function Portal() {
     });
   }, []);
 
+  const handleItemAdded = (newItem) => {
+    setItems((prevItems) => [...prevItems, newItem]);
+  };
+
   return (
     <Layout title="Appfront Portal" footerText="Appfront Portal">
-      <NewsItemList items={items} editable={true} />
+      <NewsItemList
+        items={items}
+        editable={true}
+        addable={true}
+        onItemAdded={handleItemAdded}
+      />
     </Layout>
   );
 }

@@ -1,14 +1,7 @@
 import { useState } from "react";
-import {
-  Alert,
-  Button,
-  TextField,
-  Container,
-  Typography,
-  Snackbar,
-} from "@mui/material";
+import { Alert, Button, TextField, Container, Snackbar } from "@mui/material";
 import { addItem } from "../../services/itemService";
-export default function NewsItemAdd() {
+export default function NewsItemAdd({ onAddSuccess }) {
   const [formData, setFormData] = useState({
     title: "",
     text: "",
@@ -44,6 +37,9 @@ export default function NewsItemAdd() {
     try {
       const data = await addItem(formData);
       setOpenSuccessSnackbar(true);
+      if (onAddSuccess) {
+        onAddSuccess(data);
+      }
     } catch (error) {
       console.error(error);
       setOpenErrorSnackbar(true);
@@ -52,9 +48,6 @@ export default function NewsItemAdd() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Typography component="h1" variant="h5">
-        Add a New Item
-      </Typography>
       <form onSubmit={handleSubmit}>
         <TextField
           variant="outlined"
