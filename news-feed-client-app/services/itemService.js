@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:8081/items";
+const API_BASE_URL = "http://localhost:8081";
 
 const headers = {
   "Content-Type": "application/json",
@@ -6,7 +6,7 @@ const headers = {
 
 // Fetch a list of items with optional user filtering
 export async function fetchItems(userId = null) {
-  let url = `${API_BASE_URL}`;
+  let url = `${`${API_BASE_URL}/items`}`;
   if (userId) {
     url += `?userId=${userId}`;
   }
@@ -25,10 +25,8 @@ export async function fetchItems(userId = null) {
 
 // Fetch all items without filtering
 export async function fetchAllItems() {
-  let url = `${API_BASE_URL}/all`;
-
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${API_BASE_URL}/items/all`);
     if (!response.ok) {
       throw new Error(`Failed with status: ${response.status}`);
     }
@@ -41,10 +39,8 @@ export async function fetchAllItems() {
 
 // Fetch item details by ID
 export async function fetchItemDetails(itemId) {
-  let url = `${API_BASE_URL}/${itemId}`;
-
   try {
-    const response = await fetch(url);
+    const response = await fetch(`${API_BASE_URL}/items/${itemId}`);
     if (!response.ok) {
       throw new Error(`Failed with status: ${response.status}`);
     }
@@ -58,7 +54,7 @@ export async function fetchItemDetails(itemId) {
 // Update allowed users for an item
 export async function updateItemUsers(itemId, allowedUsers) {
   try {
-    const response = await fetch(`${API_BASE_URL}/${itemId}`, {
+    const response = await fetch(`${API_BASE_URL}/items/${itemId}`, {
       method: "PATCH",
       headers: headers,
       body: JSON.stringify({ allowedUsers }),
@@ -75,7 +71,7 @@ export async function updateItemUsers(itemId, allowedUsers) {
 // Add item
 export async function addItem(itemData) {
   try {
-    const response = await fetch(API_BASE_URL, {
+    const response = await fetch(`${API_BASE_URL}/items`, {
       method: "POST",
       headers: headers,
       body: JSON.stringify(itemData),
