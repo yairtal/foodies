@@ -10,7 +10,7 @@ Before you begin, ensure you have met the following requirements:
 
 ## Setting Up the Database
 
-To initialize the database with the necessary collections and dummy data, run `initDB.js`` using Node.js:
+To initialize the database with the necessary collections and dummy data, run `initDB.js` using Node.js:
 
 ```
 node initDB.js
